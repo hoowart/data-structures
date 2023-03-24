@@ -1,0 +1,49 @@
+def radix_sort(a):
+    bucket = [[],[],[],[],[],[],[],[],[],[]]
+    digits = 0
+    count = 1
+    floor = 1
+    mod = 10
+    negative = False
+    ## find largest digit number
+    for i in a:
+        if digits < len(str(i)):
+            digits = len(str(i))
+        if i < 0:
+            negative = True
+    
+    while count <= digits:
+        ## check ones digit
+        for i in range(len(a)-1,-1,-1):
+            b_index = (a[i]%mod)//floor
+            bucket[b_index].append(a[i])
+            a.pop()
+        ## append back into a
+        for i in bucket:
+            if len(i) >= 1:
+                for j in range(len(i)-1,-1,-1):
+                    a.append(i[j])
+                    i.pop()
+        mod *= 10
+        floor *= 10
+        count += 1
+    if negative == True:
+        for i in range(len(a)-1,-1,-1):
+            if a[i] < 0:
+                bucket[0].append(a[i])
+                a.pop()
+            else:
+                bucket[9].append(a[i])
+                a.pop()
+        ## append back into a
+        for i in bucket:
+            if len(i) >= 1:
+                for j in range(len(i)-1,-1,-1):
+                    a.append(i[j])
+                    i.pop()
+
+## TESTING
+import random
+a = [random.randint(-10, 10) for _ in range(10)]
+radix_sort(a)
+print(a)
