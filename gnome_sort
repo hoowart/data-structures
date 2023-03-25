@@ -1,0 +1,15 @@
+def gnome_sort(a):
+    count = 1
+    if len(a) > 1:
+        while count < len(a):
+            while a[count] < a[count-1] and count != 0:
+                temp = a[count]
+                a[count] = a[count-1]
+                a[count-1] = temp
+                count -= 1
+            count += 1
+
+import random
+a = [random.randint(-10, 10) for _ in range(10)]
+gnome_sort(a)
+print(a)
